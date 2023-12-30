@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities{
+    .rtl{
+        direction: rtl;
+    }
+    .hederbg{
+        background-image: url(../public/dist/images/headerimg.jpg);
+        background-position: top;
+        background-repeat: no-repeat; 
+        background-size: cover; 
+    }
+}
+
+@font-face{
+    font-family:shabnam ;
+    src: url("../public/dist/font/Shabnam.ttf");
+}
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: shabnam;
+}
