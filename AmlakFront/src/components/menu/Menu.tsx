@@ -15,9 +15,9 @@ const Menu = () => {
                 <li className='hover:cursor-pointer hover:text-rose-600'>تماس با ما</li>
             </ul>
             <div className='w-1/3 max-[1231px]:w-1/4 max-[1231px]:justify-end pl-4 flex-grow flex justify-center items-center max-[917px]:w-full max-[917px]:justify-center pt-3 max-[917px]:pl-0'>
-                  <div className='w-32 h-10 bg-white border-[1px] border-[#00AE79] rounded-[30px] flex justify-center items-center hover:bg-[#00AE79] hover:cursor-pointer'>
-                      <Link to={"advertisement"}><p className='w-full h-full text-[#00AE79] hover:text-white flex justify-center items-center'>ثبت آگهی</p></Link>
-                  </div>
+                      <Link to={"advertisement"}><div className='w-32 h-10 bg-white border-[1px] border-[#00AE79] rounded-[30px] flex justify-center items-center hover:bg-[#00AE79] childHover hover:cursor-pointer'>
+                      <p className='w-full h-full text-[#00AE79] flex justify-center items-center'>ثبت آگهی</p>
+                  </div></Link>
             </div>
         </div>
   </>

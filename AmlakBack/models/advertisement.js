@@ -2,7 +2,9 @@ const mongoose = require("mongoose")
 
 
 const schema = new mongoose.Schema({
-    number : {type : Number, required : true},
+    postcode : {type : Number, required : true},
+
+    otagh : {type : Number, required : true},
 
     ostan:{type : String, required : true},
 
@@ -20,11 +22,21 @@ const schema = new mongoose.Schema({
 
     masahat:{type : Number, required : true},
 
-    barmelk:{type : Number, required : true},
-
     gheimat:{type : Number, required : true},
 
     ejare:{type : Number, required : false},
+
+    photo:{type:String, require:true},
+
+    rate:{type : Number, required : false},
+
+    gharardad:{type : String, required : true},
+
+    phone:{type : String, required : true},
+
+    year:{type : String, required : true},
+
+    sanad:{type : String, required : false},
 
 })
 

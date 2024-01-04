@@ -12,6 +12,9 @@
         background-repeat: no-repeat; 
         background-size: cover; 
     }
+    .childHover:hover p{
+        color: white;
+    }
 }
 
 @font-face{

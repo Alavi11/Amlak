@@ -6,14 +6,14 @@ const cors = require("cors");
 let cookieParser = require("cookie-parser");
 
 App.use(cookieParser());
-
+App.use(express.static("upload"));
 App.use(cors({
     origin:"http://localhost:3000"
 }))
 
 App.use(express.json());
 App.use("/api",api);
-// App.use(express.static("upload"));
+
 
 
 App.listen(3001,(err)=>{

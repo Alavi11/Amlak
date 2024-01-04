@@ -11,6 +11,7 @@ import Register from './components/register/Register';
 import Login from './components/login/Login';
 import Advertisement from './components/advertisement/Advertisement';
 import LoginCheck from './components/loginCheck/LoginCheck';
+import AdvDetails from './components/advertisement/AdvDetails';
 
 
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="login" element={<Login/>}/>
         <Route element={<LoginCheck/>}>
             <Route path="advertisement" element={<Advertisement/>}/>
+            <Route path="advertisement/detail/:advPostcode" element={<AdvDetails/>}/>
         </Route>
       </Routes>
       <Footer/>

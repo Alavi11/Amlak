@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 
+
 const Advertisement = () => {
 
   const [ostan, setOstan] = useState("");
@@ -11,42 +12,87 @@ const Advertisement = () => {
   const [address, setAddress] = useState("");
   const [zirbana, setZirbana] = useState("");
   const [masahat, setMasahat] = useState("");
-  const [barmelk, setBarmelk] = useState("");
+  const [postcode, setPostcode] = useState("");
   const [gheimat, setGheimat] = useState("");
   const [ejare, setEjare] = useState("");
+  const [otagh, setOtagh] = useState("");
+  const [gharardad, setGharardad] = useState("");
+  const [phone, setPhone] = useState("");
+  const [err, setErr] = useState("");
+  const [year, setYear] = useState("");
+  const [sanad, setSanad] = useState("");
 
-  const handleSubmit = async(e:any) =>{
+
+
+    useEffect(()=>{
+        if(phone.length !== 11){
+            setErr("شماره موبایل باید ۱۱ رقمی باشد")
+        }
+        else{
+            setErr("")
+        }
+    },[phone])
+
+
+  const handleSubmit = async(e:any , err:any) =>{
     e.preventDefault();
-    const data = {
-      ostan,
-      shahr,
-      mantaghe,
-      karbari,
-      melktype,
-      address,
-      zirbana,
-      masahat,
-      barmelk,
-      gheimat,
-      ejare
-    }
+    const formData = new FormData()
+    const photo = document.querySelector<any>("#photo").files[0];
+    formData.append("picture",photo);
+    formData.append("ostan",ostan);
+    formData.append("shahr",shahr);
+    formData.append("mantaghe",mantaghe);
+    formData.append("karbari",karbari);
+    formData.append("melktype",melktype);
+    formData.append("address",address);
+    formData.append("zirbana",zirbana);
+    formData.append("masahat",masahat);
+    formData.append("postcode",postcode);
+    formData.append("gheimat",gheimat);
+    formData.append("ejare",ejare);
+    formData.append("otagh",otagh);
+    formData.append("gharardad",gharardad);
+    formData.append("phone",phone);
+    formData.append("year",year);
+    formData.append("sanad",sanad);
 
-    await axios.post("http://localhost:3001/api/advertisement",data,{
-      headers:{
-        "Content-Type" : "application/json",
-        "Accept" : "application/json",
-        "Authorization": `Bearer ${localStorage.getItem("token")}`
-      }
-    }).then((res)=>{
-      console.log(res);
-    }).catch((err)=>{
-      console.log(err);
-    })
+    if(err === ""){
+        await axios.post("http://localhost:3001/api/advertisement",formData,{
+        headers:{
+            "Accept" : "application/json",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+        }).then((res)=>{
+        alert(res.data.massage)
+        window.location.reload()
+        }).catch((err)=>{
+        console.log(err);
+        })
+    }
+    else{
+        alert(err)
+    }
   }
 
   return <>
-        <div className='w-full h-[820px] max-[890px]:h-[1300px] max-[917px]:mt-5 flex items-center justify-center py-5'>
-            <form className='w-[73%] max-[535px]:w-full h-full flex flex-wrap gap-[10px] rtl justify-center items-center rounded-xl shadow-2xl' onSubmit={handleSubmit}>
+        <div className='w-full h-[820px] max-[890px]:h-[1850px] max-[1342px]:h-[1000px] max-[917px]:mt-5 flex items-center justify-center py-5'>
+            <form className='w-[73%] max-[535px]:w-full h-full flex flex-wrap gap-[10px] rtl justify-center items-center rounded-xl shadow-2xl' onSubmit={(e)=>{handleSubmit(e,err)}}>
+                <div className='flex flex-col w-[320px] max-[375px]:w-[270px] items-start relative'>
+                    <label htmlFor="gharardad">نوع قرارداد</label>
+                    <input
+                        className='mb-8 w-full h-9 border-[0.5px] border-gray-400 rounded-md outline-none rtl p-2'
+                        type="text"
+                        id="gharardad"
+                        value={gharardad}
+                        onChange={(e) => setGharardad(e.target.value)}
+                        required
+                        list="gharardadlist"
+                    />
+                    <datalist id="gharardadlist">
+                            <option value="فروش"/>
+                            <option value="اجاره"/>
+                    </datalist>
+                </div>
                 <div className='flex flex-col w-[320px] max-[375px]:w-[270px] items-start'>
                     <label htmlFor="ostan">استان</label>
                     <input
@@ -157,13 +203,65 @@ const Advertisement = () => {
                 />
                 </div>
                 <div className='flex flex-col w-[320px] max-[375px]:w-[270px] items-start relative'>
-                <label htmlFor="barmelk">بر ملک</label>
+                <label htmlFor="year">عمربنا</label>
+                <input
+                    className='mb-8 w-full h-9 border-[0.5px] border-gray-400 rounded-md outline-none rtl p-2'
+                    type="text"
+                    id="year"
+                    value={year}
+                    onChange={(e) => setYear(e.target.value)}
+                    required
+                    list='yearlist'
+                />
+                    <datalist id="yearlist">
+                            <option value="کمتر از ۵ سال"/>
+                            <option value="بین ۵ تا ۱۰ سال"/>
+                            <option value="بین ۱۰ تا ۱۵ سال"/>
+                            <option value="بیشتر از ۱۵ سال"/>
+                    </datalist>
+                </div>
+                {
+                    gharardad == "فروش" ? <div className='flex flex-col w-[320px] max-[375px]:w-[270px] items-start relative'>
+                                                <label htmlFor="sanad">نوع سند</label>
+                                                <input
+                                                    className='mb-8 w-full h-9 border-[0.5px] border-gray-400 rounded-md outline-none rtl p-2'
+                                                    type="text"
+                                                    id="sanad"
+                                                    value={sanad}
+                                                    onChange={(e) => setSanad(e.target.value)}
+                                                    required
+                                                    list='sanadlist'
+                                                />
+                                                    <datalist id="sanadlist">
+                                                            <option value="شش دانگ"/>
+                                                            <option value="سه دانگ"/>
+                                                            <option value="قولنامه ای"/>
+                                                            <option value="اوقافی"/>
+                                                            <option value="شورایی"/>
+                                                            <option value="وکالتی"/>
+                                                    </datalist>
+                                            </div> : <></>
+                }
+                
+                <div className='flex flex-col w-[320px] max-[375px]:w-[270px] items-start relative'>
+                <label htmlFor="postcode">کدپستی</label>
                 <input
                     className='mb-8 w-full h-9 border-[0.5px] border-gray-400 rounded-md outline-none rtl p-2'
                     type="number"
-                    id="barmelk"
-                    value={barmelk}
-                    onChange={(e) => setBarmelk(e.target.value)}
+                    id="postcode"
+                    value={postcode}
+                    onChange={(e) => setPostcode(e.target.value)}
+                    required
+                />
+                </div>
+                <div className='flex flex-col w-[320px] max-[375px]:w-[270px] items-start relative'>
+                <label htmlFor="otagh">تعداد اتاق</label>
+                <input
+                    className='mb-8 w-full h-9 border-[0.5px] border-gray-400 rounded-md outline-none rtl p-2'
+                    type="number"
+                    id="otagh"
+                    value={otagh}
+                    onChange={(e) => setOtagh(e.target.value)}
                     required
                 />
                 </div>
@@ -179,13 +277,36 @@ const Advertisement = () => {
                 />
                 </div>
                 <div className='flex flex-col w-[320px] max-[375px]:w-[270px] items-start relative'>
-                <label htmlFor="ejare">اجاره</label>
+                <label htmlFor="phone">تلفن همراه مالک</label>
                 <input
                     className='mb-8 w-full h-9 border-[0.5px] border-gray-400 rounded-md outline-none rtl p-2'
-                    type="number"
-                    id="ejare"
-                    value={ejare}
-                    onChange={(e) => setEjare(e.target.value)}
+                    type="text"
+                    id="phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    required
+                />
+                <small className='absolute text-rose-700 bottom-1'>{err}</small>
+                </div>
+                {
+                    gharardad == "اجاره" ? <div className='flex flex-col w-[320px] max-[375px]:w-[270px] items-start relative'>
+                                            <label htmlFor="ejare">اجاره</label>
+                                            <input
+                                                className='mb-8 w-full h-9 border-[0.5px] border-gray-400 rounded-md outline-none rtl p-2'
+                                                type="number"
+                                                id="ejare"
+                                                value={ejare}
+                                                onChange={(e) => setEjare(e.target.value)}
+                                            />
+                                            </div> : <></>
+                }
+                <div className='flex flex-col w-[320px] max-[375px]:w-[270px] items-start relative'>
+                <label htmlFor="photo">افزودن عکس</label>
+                <input
+                    className='mb-8 h-9 border-[0.5px] border-gray-400 rounded-md outline-none rtl p-2'
+                    type="file"
+                    id="photo"
+                    name='picture'
                 />
                 </div>
                 <button className='w-[320px] max-[375px]:w-[270px] h-9 bg-green-600 rounded-md mb-2 text-white'>ثبت</button>
