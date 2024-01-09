@@ -12,6 +12,7 @@ import Login from './components/login/Login';
 import Advertisement from './components/advertisement/Advertisement';
 import LoginCheck from './components/loginCheck/LoginCheck';
 import AdvDetails from './components/advertisement/AdvDetails';
+import Search from './components/search/Search';
 
 
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="register" element={<Register/>}/>
         <Route path="login" element={<Login/>}/>
+        <Route path="search" element={<Search/>}/>
         <Route element={<LoginCheck/>}>
             <Route path="advertisement" element={<Advertisement/>}/>
             <Route path="advertisement/detail/:advPostcode" element={<AdvDetails/>}/>

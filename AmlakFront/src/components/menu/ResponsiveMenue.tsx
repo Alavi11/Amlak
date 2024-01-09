@@ -17,7 +17,7 @@ const ResponsiveMenue = () => {
             <ul className='h-[400px] flex flex-col justify-between w-full rtl'>
                 <img className='w-full h-32 mb-3' src='../../dist/images/brand.png'/>
                 <Link to={'/'}><li className='mr-3 w-[90%] border-b-[1px] hover:cursor-pointer'>خانه</li></Link>
-                <li className='mr-3 w-[90%] border-b-[1px] hover:cursor-pointer'>جستوجو املاک</li>
+                <Link to={'/search'}><li className='mr-3 w-[90%] border-b-[1px] hover:cursor-pointer'>جستوجو املاک</li></Link>
                 <li className='mr-3 w-[90%] border-b-[1px] hover:cursor-pointer'>اخبار</li>
                 <li className='mr-3 w-[90%] border-b-[1px] hover:cursor-pointer'>تماس با ما</li>
             </ul>

@@ -5,6 +5,59 @@ const jwt = require('jsonwebtoken');
 
 class advertisement{
 
+
+    async getBySearch(req,res){
+        const filters = req.body
+        const query = {};
+
+        for (const key in filters) {
+            if (filters[key] != ""){
+              switch (key) {
+                case 'ostan':
+                  query.ostan = filters[key];
+                  break;
+                case 'shahr':
+                  query.shahr = filters[key];
+                  break;
+                case 'mantaghe':
+                    query.mantaghe = filters[key];
+                    break;
+                case 'karbari':
+                    query.karbari = filters[key];
+                    break;
+                case 'melktype':
+                    query.melktype = filters[key];
+                    break;
+                case 'masahat':
+                    query.masahat = {$lte: Number(filters[key])};
+                    break;
+                case 'gheimat':
+                    query.gheimat = {$lte: Number(filters[key])};
+                    break;
+                case 'ejare':
+                    query.ejare = {$lte: Number(filters[key])};
+                    break;
+                case 'otagh':
+                    query.otagh = {$gte: Number(filters[key])};
+                    break;
+                case 'gharardad':
+                    query.gharardad = filters[key];
+                    break;
+                case 'year':
+                    query.year = filters[key];
+                    break;
+                case 'sanad':
+                    query.sanad = filters[key];
+                    break;
+              }
+            }
+        }
+
+        const adv = await newadvertisement.find(query)
+        return res.send(adv)
+    }
+
+
     async getall(req,res){
         const adv = await newadvertisement.find()
         const compareByRate = (a, b) => {

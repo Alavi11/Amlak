@@ -20,6 +20,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 router.post('/',upload.single("picture"),controller.create)
+router.post('/search',controller.getBySearch)
 router.post('/detail/:postcode',controller.setRate)
 
 router.get('/',controller.getall)

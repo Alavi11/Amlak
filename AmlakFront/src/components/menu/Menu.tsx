@@ -10,7 +10,7 @@ const Menu = () => {
             </div>
             <ul className='w-1/3 max-[1231px]:w-2/4 max-[1231px]:hidden flex-grow flex items-center justify-around'>
                 <Link to={'/'}><li className='hover:cursor-pointer hover:text-rose-600'>خانه</li></Link>
-                <li className='hover:cursor-pointer hover:text-rose-600'>جستوجو املاک</li>
+                <Link to={'/search'}><li className='hover:cursor-pointer hover:text-rose-600'>جستوجو املاک</li></Link>
                 <li className='hover:cursor-pointer hover:text-rose-600'>اخبار</li>
                 <li className='hover:cursor-pointer hover:text-rose-600'>تماس با ما</li>
             </ul>
