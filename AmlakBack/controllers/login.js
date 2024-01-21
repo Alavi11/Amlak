@@ -8,7 +8,7 @@ class login {
         const user = await newregister.findOne({phone : req.body.phone})
         if(user){
             if(user.password !== req.body.password){
-                return res.send({userIsExisted : true,passwordIsOk:false, massage:"رمز عبور یا نام کاربری اشتباه است"})
+                return res.send({userIsExisted : true, passwordIsOk:false, massage:"رمز عبور یا نام کاربری اشتباه است"})
             }
             else{
                 const phone = user.phone

@@ -13,12 +13,15 @@ import Advertisement from './components/advertisement/Advertisement';
 import LoginCheck from './components/loginCheck/LoginCheck';
 import AdvDetails from './components/advertisement/AdvDetails';
 import Search from './components/search/Search';
+import Dashboard from './components/dashboard/Dashboard';
+import EditAndDeleteAdv from './components/editandDeleteAdv/EditAndDeleteAdv';
 
 
 
 function App() {
 
   const context = useGlobalcontext()
+  const defaultProps = {profileStore:{}}
 
 
   return <>
@@ -37,6 +40,9 @@ function App() {
         <Route element={<LoginCheck/>}>
             <Route path="advertisement" element={<Advertisement/>}/>
             <Route path="advertisement/detail/:advPostcode" element={<AdvDetails/>}/>
+            <Route path="dashboard" element={<Dashboard/>}>
+              <Route path="edit" element={<EditAndDeleteAdv/>}/>
+            </Route>
         </Route>
       </Routes>
       <Footer/>

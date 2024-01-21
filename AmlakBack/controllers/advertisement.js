@@ -1,9 +1,102 @@
 const newadvertisement = require("../models/advertisement");
 const newregister = require("../models/register");
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 
 
 class advertisement{
+
+    async delete(req,res){
+
+        const authHeader = req.headers['authorization'];
+        const usertoken = authHeader && authHeader.split(' ')[1];
+        const secret = 'Amlak'
+        const decoded = jwt.verify(usertoken, secret);
+        const postcode = req.params.postcode
+
+       
+        if(usertoken){
+            let user = await newregister.findOne({phone : decoded.phone})
+            const adv = await newadvertisement.findOne({postcode:postcode})
+            let advlist = []
+            for (let i = 0; i < user.posts.length; i++) {
+                if(user.posts[i] != postcode){
+                    advlist.push(user.posts[i])
+                }
+            }
+            user.posts = advlist
+            user = await user.save()
+
+            await newadvertisement.deleteOne({postcode:postcode})
+            
+            let filePath = `./upload/${adv.photo}` ; 
+            fs.unlinkSync(filePath);
+
+            return res.send({isDone:true,massage:"با موفقیت حذف شد"})
+        }
+        return res.send({isDone:false,massage:"عملیات موفق نبود"})
+       
+    }
+
+    async put(req,res){
+
+        const authHeader = req.headers['authorization'];
+        const usertoken = authHeader && authHeader.split(' ')[1];
+        const secret = 'Amlak'
+        const decoded = jwt.verify(usertoken, secret);
+        const postcode = req.params.postcode
+
+       
+        if(usertoken){
+            const editproperty = req.body
+            let adv = await newadvertisement.findOne({postcode:postcode})
+            
+            if(editproperty.masahat != 0){
+                adv.masahat = Number(editproperty.masahat)
+                adv = await adv.save()
+            }
+            if(editproperty.gheimat){
+                adv.gheimat = editproperty.gheimat
+                adv = await adv.save()
+            }
+            if(editproperty.otagh != 0){
+                adv.otagh = Number(editproperty.otagh)
+                adv = await adv.save()
+            }
+            if(editproperty.year){
+                adv.year = editproperty.year
+                adv = await adv.save()
+            }
+            return res.send({isDone:true,massage:"با موفقیت ویرایش شد"})
+        }
+        return res.send({isDone:false,massage:"عملیات موفق نبود"})
+       
+    }
+
+
+
+    async getUserAdv(req,res){
+        const authHeader = req.headers['authorization'];
+        const usertoken = authHeader && authHeader.split(' ')[1];
+        const secret = 'Amlak'
+        const decoded = jwt.verify(usertoken, secret);
+
+        let user = await newregister.findOne({phone : decoded.phone})
+
+        const userAdvCode = user.posts;
+        const userAdvsList = [] 
+
+        if(userAdvCode){
+            for (let i = 0; i < userAdvCode.length; i++) {
+                const adv = await newadvertisement.findOne({postcode : userAdvCode[i]})
+                userAdvsList.push(adv)
+            }
+            return res.send({isAdv:true,data:userAdvsList})
+        }
+        return res.send({isAdv:false})
+        
+    }
+
 
 
     async getBySearch(req,res){
@@ -65,22 +158,21 @@ class advertisement{
         }
         adv.sort(compareByRate);
         adv.reverse()
-        res.send(adv)
+        return res.send(adv)
     }
     async getone(req,res){
         const postcode = req.params.postcode
         const adv = await newadvertisement.findOne({postcode : postcode})
-        res.send(adv)
+        return res.send(adv)
     }
     async setRate(req,res){
         const postcode = req.params.postcode
         let adv = await newadvertisement.findOne({postcode : postcode})
         let rate = (req.body.rate + adv.rate)/2
         rate = rate.toFixed(1)
-        console.log(rate);
         adv.rate = rate
         adv = await adv.save()
-        res.send(adv)
+        return res.send(adv)
     }
 
 
@@ -141,7 +233,7 @@ class advertisement{
             reg = await reg.save();
             user.posts.push(postcode)
             user = await user.save()
-            res.send({massage:"با موفقیت ثبت شد"});
+            return res.send({massage:"با موفقیت ثبت شد"});
         }
     }
 }

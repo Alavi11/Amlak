@@ -13,7 +13,7 @@ const Reg_Log = () => {
             {
                localStorage.getItem("isLogin") ?<ul className='flex w-[30%] justify-end'>
                <li className='hover:cursor-pointer border-l-[1px] border-black ml-2 pl-3 w-10' onClick={handleExit}>خروج</li>
-               <Link to={"dashboar"}><li className='w-14'>داشبورد</li></Link>
+               <Link to={"dashboard"}><li className='w-14'>داشبورد</li></Link>
                </ul>  :<ul className='flex w-[30%] justify-end'>
                     <Link to={"login"}><li className='border-l-[1px] border-black ml-2 pl-2 w-8'>ورود</li></Link>
                     <Link to={"register"}><li className='w-14'>ثبت نام</li></Link>

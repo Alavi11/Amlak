@@ -8,7 +8,7 @@ const controller = require('../controllers/advertisement')
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         mkdirp('./upload').then(made=>{
-         cb(null, './upload')
+          cb(null, './upload')
       })
     },
     filename: function (req, file, cb) {
@@ -20,11 +20,16 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 router.post('/',upload.single("picture"),controller.create)
+
 router.post('/search',controller.getBySearch)
 router.post('/detail/:postcode',controller.setRate)
 
 router.get('/',controller.getall)
 router.get('/detail/:postcode',controller.getone)
+router.get('/myadv',controller.getUserAdv)
+
+router.delete("/:postcode",controller.delete)
+router.put("/:postcode",controller.put)
 
 
 

@@ -17,7 +17,7 @@ App.use("/api",api);
 
 
 App.listen(3001,(err)=>{
-    if(err){console.log("not conected");}
+    if(err){console.log(err);}
     else{
         console.log("conected");
     }
@@ -26,6 +26,6 @@ App.listen(3001,(err)=>{
 mongoose.connect('mongodb://127.0.0.1:27017/Amlak')
     .then(()=>{
         console.log("vasl shod");
-    }).catch(()=>{   
+    }).catch((err)=>{   
         console.log("vasl nashode");
 })

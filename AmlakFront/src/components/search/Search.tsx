@@ -74,7 +74,7 @@ const Search = () => {
         <div className='w-full h-[817px] max-[917px]:mt-8'>
             <div className='w-full max-[1139px]:h-[160px] h-[90px] bg-[#F7F8F9] rounded-xl max-[614px]:hidden'>
                 <form className=' w-full max-[535px]:w-full max-[1139px]:gap-y-[0px] h-full flex flex-wrap gap-[15px] rtl justify-center items-center pt-4' onSubmit={(e)=>{handleFilter(e)}}>
-                        <div className='flex flex-col w-[90px]  items-start relative'>
+                        <div className='flex flex-col w-[90px] items-start relative'>
                             <label htmlFor="gharardad" className='text-sm'>نوع قرارداد</label>
                             <input
                                 className='mb-8 w-full h-7 border-[0.5px] border-gray-400 rounded-md outline-none rtl p-2'
